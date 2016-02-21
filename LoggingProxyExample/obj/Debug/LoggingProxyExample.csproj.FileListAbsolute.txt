@@ -1,0 +1,13 @@
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\LoggingProxyExample.dll
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\LoggingProxyExample.pdb
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Castle.Core.dll
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Common.Logging.Core.dll
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Common.Logging.dll
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Castle.Core.xml
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Common.Logging.pdb
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Common.Logging.xml
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Common.Logging.Core.pdb
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\bin\Debug\Common.Logging.Core.xml
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\obj\Debug\LoggingProxyExample.csprojResolveAssemblyReference.cache
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\obj\Debug\LoggingProxyExample.dll
+C:\Users\jared\Documents\Experiments\LoggingProxyExample\LoggingProxyExample\obj\Debug\LoggingProxyExample.pdb
