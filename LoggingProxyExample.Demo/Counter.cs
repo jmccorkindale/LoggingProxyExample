@@ -2,21 +2,28 @@ namespace LoggingProxyExample.Demo
 {
     public class Counter
     {
-        private int _internalValue;
+        public int InternalValue { get; private set; }
 
         public Counter(int value)
         {
-            _internalValue = value;
+            InternalValue = value;
         }
 
         public void Increment()
         {
-            CommandFactory.Instance(() => _internalValue = _internalValue + 1).Execute();
+            CommandFactory.Instance(() => InternalValue = InternalValue + 1).Execute();
         }
 
         public void Decrement()
         {
-            CommandFactory.Instance(() => _internalValue = _internalValue - 1).Execute();
+            CommandFactory.Instance(() => InternalValue = InternalValue - 1).Execute();
         }
+
+        public void Adjust(int value)
+        {
+            CommandFactory.Instance<int>((number) => InternalValue = InternalValue + number).Execute(value);
+        }
+
+        
     }
 }

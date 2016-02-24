@@ -9,6 +9,8 @@
             counter.Increment();
 
             counter.Decrement();
+
+            counter.Adjust(2);
         }
     }
 }

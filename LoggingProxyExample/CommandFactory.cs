@@ -8,6 +8,12 @@ namespace LoggingProxyExample
         private static readonly ProxyGenerator Generator = new ProxyGenerator();
 
         public static ICommand Instance(Action action)
-            => (ICommand) Generator.CreateClassProxy(typeof (Command), new object[] {action}, new CommandInterceptor(action));
+            => CreateCommandProxy(typeof (Command), action) as ICommand;
+
+        public static ICommand<T> Instance<T>(Action<T> action)
+            => CreateCommandProxy(typeof (Command<T>), action) as ICommand<T>;
+
+        private static object CreateCommandProxy(Type commandType, Delegate @delegate)
+            => Generator.CreateClassProxy(commandType, new object[] {@delegate}, new CommandInterceptor(@delegate));
     }
 }

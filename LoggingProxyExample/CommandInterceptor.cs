@@ -1,32 +1,41 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using Castle.DynamicProxy;
-using Common.Logging;
-using Common.Logging.Simple;
 
 namespace LoggingProxyExample
 {
-    public class CommandInterceptor : IInterceptor
+    public class CommandInterceptor : LoggingIntercepter
     {
-        private readonly Action _commandAction;
-        private readonly ILog _log = LogManager.GetLogger(typeof (ConsoleOutLogger));
+        private readonly Delegate _delegate;
 
-        public CommandInterceptor(Action action)
+        public CommandInterceptor(Delegate @delegate)
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+            if (@delegate == null) throw new ArgumentNullException(nameof(@delegate));
 
-            _commandAction = action;
+            _delegate = @delegate;
         }
 
-        public void Intercept(IInvocation invocation)
+        private string BuildLogMessage(Delegate @delegate, IInvocation invocation)
         {
-            if (invocation.Method.Name.Equals("Execute"))
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append($"Command executing : {@delegate.Target} {@delegate.Method.Name}");
+
+            if (invocation.Arguments.Any())
             {
-                var methodInfo = _commandAction.Method;
-
-                _log.Trace($"Command executing : {methodInfo.DeclaringType?.FullName + methodInfo.Name}");
-
-                invocation.Proceed();
+                stringBuilder.Append(
+                    $" | arguments : count {invocation.Arguments.Length} : values {string.Join(", ", invocation.Arguments)}");
             }
+
+            return stringBuilder.ToString();
+        }
+
+        public override void Intercept(IInvocation invocation)
+        {
+            Log.Trace(BuildLogMessage(_delegate, invocation));
+
+            invocation.Proceed();
         }
     }
 }

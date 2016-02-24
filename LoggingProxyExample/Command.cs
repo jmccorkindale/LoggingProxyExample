@@ -13,9 +13,20 @@ namespace LoggingProxyExample
             _commandAction = action;
         }
 
-        public virtual void Execute()
+        public virtual void Execute() => _commandAction.Invoke();
+    }
+
+    public class Command<T> : ICommand<T>
+    {
+        private readonly Action<T> _commandAction;
+
+        public Command(Action<T> action)
         {
-            _commandAction.Invoke();
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            _commandAction = action;
         }
+
+        public virtual void Execute(T arg) => _commandAction.Invoke(arg);
     }
 }
