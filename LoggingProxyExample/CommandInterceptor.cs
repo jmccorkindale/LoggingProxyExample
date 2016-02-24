@@ -5,6 +5,13 @@ using Castle.DynamicProxy;
 
 namespace LoggingProxyExample
 {
+    /// <summary>
+    ///     Intercepts the <see cref="ICommand" /> or <see cref="ICommand{T}" /> object and inserts Logging functionality.
+    /// </summary>
+    /// <remarks>
+    ///     Key class that uses Dynamic Proxy which allows the separation of the specific class logic from cross-cutting
+    ///     business requirements.
+    /// </remarks>
     public class CommandInterceptor : LoggingIntercepter
     {
         private readonly Delegate _delegate;
@@ -14,6 +21,17 @@ namespace LoggingProxyExample
             if (@delegate == null) throw new ArgumentNullException(nameof(@delegate));
 
             _delegate = @delegate;
+        }
+
+        /// <summary>
+        ///     Implementation of the Intercept method.
+        /// </summary>
+        /// <param name="invocation">The <see cref="IInvocation" /> method to be passed.</param>
+        public override void Intercept(IInvocation invocation)
+        {
+            Log.Trace(BuildLogMessage(_delegate, invocation));
+
+            invocation.Proceed();
         }
 
         private string BuildLogMessage(Delegate @delegate, IInvocation invocation)
@@ -29,13 +47,6 @@ namespace LoggingProxyExample
             }
 
             return stringBuilder.ToString();
-        }
-
-        public override void Intercept(IInvocation invocation)
-        {
-            Log.Trace(BuildLogMessage(_delegate, invocation));
-
-            invocation.Proceed();
         }
     }
 }
