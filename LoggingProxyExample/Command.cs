@@ -1,10 +1,12 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace LoggingProxyExample
 {
     /// <summary>
     ///     Implementation of the <see cref="ICommand" /> interface.
     /// </summary>
+    [UsedImplicitly]
     public class Command : ICommand
     {
         public Command(Action action)
@@ -29,6 +31,7 @@ namespace LoggingProxyExample
     ///     Implementaiton of the <see cref="ICommand{T}" /> interface.
     /// </summary>
     /// <typeparam name="T">The type parameter taken by the <see cref="Action{T}" /> object.</typeparam>
+    [UsedImplicitly]
     public class Command<T> : ICommand<T>
     {
         public Command(Action<T> action)

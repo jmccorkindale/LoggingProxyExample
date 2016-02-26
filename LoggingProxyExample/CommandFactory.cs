@@ -15,8 +15,7 @@ namespace LoggingProxyExample
         /// </summary>
         /// <param name="action">The <see cref="Action" /> constructor argument for the <see cref="Command" /> object.</param>
         /// <returns>An <see cref="ICommand" /> proxy.</returns>
-        public static ICommand Instance(Action action)
-            => CreateCommandProxy(typeof (Command), action) as ICommand;
+        public static ICommand Instance(Action action) => CreateCommandProxy<Command>(action);
 
         /// <summary>
         ///     Generates a new instance of the <see cref="Command{T}" /> class.
@@ -24,10 +23,10 @@ namespace LoggingProxyExample
         /// <typeparam name="T">The type of the parameter taken by the <see cref="Command{T}" /> object constructor.</typeparam>
         /// <param name="action">The <see cref="Action{T}" /> object required by the <see cref="Command{T}" /> constructor.</param>
         /// <returns>An <see cref="ICommand{T}" /> proxy.</returns>
-        public static ICommand<T> Instance<T>(Action<T> action)
-            => CreateCommandProxy(typeof (Command<T>), action) as ICommand<T>;
+        public static ICommand<T> Instance<T>(Action<T> action) => CreateCommandProxy<Command<T>>(action);
 
-        private static object CreateCommandProxy(Type commandType, Delegate @delegate)
-            => Generator.CreateClassProxy(commandType, new object[] {@delegate}, new CommandInterceptor(@delegate));
+        private static TCommand CreateCommandProxy<TCommand>(Delegate @delegate)
+            => (TCommand) Generator.CreateClassProxy(typeof (TCommand), new object[] {@delegate},
+                new CommandInterceptor(@delegate));
     }
 }
